@@ -1,8 +1,8 @@
-const TokenFarm = artifacts.require('TokenFarm')
+const YieldFarm = artifacts.require('YieldFarm')
 
 module.exports = async function(callback) {
-  let tokenFarm = await TokenFarm.deployed()
-  await tokenFarm.issueTokens()
+  let yieldFarm = await YieldFarm.deployed()
+  await yieldFarm.issueTokens()
   // Code goes here...
   console.log("Tokens issued!")
   callback()

@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import Web3 from 'web3'
-import DaiToken from '../abis/DaiToken.json'
-import DappToken from '../abis/VetherToken.json'
-import TokenFarm from '../abis/YieldFarm.json'
-import Navbar from './Navbar'
-import Home from './Home'
+import DaiToken from './abis/DaiToken.json'
+import VbooToken from './abis/VbooToken.json'
+import TokenFarm from './abis/YieldFarm.json'
+import Navbar from './components/Navbar'
+import Home from './components/Home'
 import './App.css'
 
 class App extends Component {
+
 
   async componentWillMount() {
     await this.loadWeb3()
@@ -33,15 +34,15 @@ class App extends Component {
       window.alert('DaiToken contract not deployed to detected network.')
     }
 
-    // Load DappToken
-    const dappTokenData = DappToken.networks[networkId]
-    if(dappTokenData) {
-      const dappToken = new web3.eth.Contract(DappToken.abi, dappTokenData.address)
-      this.setState({ dappToken })
-      let dappTokenBalance = await dappToken.methods.balanceOf(this.state.account).call()
-      this.setState({ dappTokenBalance: dappTokenBalance.toString() })
+    // Load VetherToken
+    const vbooTokenData = VbooToken.networks[networkId]
+    if(vbooTokenData) {
+      const vbooToken = new web3.eth.Contract(VbooToken.abi, vbooTokenData.address)
+      this.setState({ vbooToken })
+      let vbooTokenBalance = await vbooToken.methods.balanceOf(this.state.account).call()
+      this.setState({ vbooTokenBalance: vbooTokenBalance.toString() })
     } else {
-      window.alert('DappToken contract not deployed to detected network.')
+      window.alert('VbooToken contract not deployed to detected network.')
     }
 
     // Load TokenFarm
@@ -82,7 +83,7 @@ class App extends Component {
 
   unstakeTokens = (amount) => {
     this.setState({ loading: true })
-    this.state.tokenFarm.methods.unstakeTokens().send({ from: this.state.account }).on('transactionHash', (hash) => {
+    this.state.tokenFarm.methods.unDepositTokens().send({ from: this.state.account }).on('transactionHash', (hash) => {
       this.setState({ loading: false })
     })
   }
@@ -92,10 +93,10 @@ class App extends Component {
     this.state = {
       account: '0x0',
       daiToken: {},
-      dappToken: {},
+      vbooToken: {},
       tokenFarm: {},
       daiTokenBalance: '0',
-      dappTokenBalance: '0',
+      vbooTokenBalance: '0',
       stakingBalance: '0',
       loading: true
     }
@@ -108,33 +109,21 @@ class App extends Component {
     } else {
       content = <Home
         daiTokenBalance={this.state.daiTokenBalance}
-        dappTokenBalance={this.state.dappTokenBalance}
+        vbooTokenBalance={this.state.vbooTokenBalance}
         stakingBalance={this.state.stakingBalance}
-        stakeTokens={this.stakeTokens}
-        unstakeTokens={this.unstakeTokens}
+        stakeTokens={this.depositTokens}
+        unstakeTokens={this.unDepositTokens}
       />
+      // these are all the properties I am sending to the home page
     }
-
     return (
-      <div>
+      <div className="background-red">
         <Navbar account={this.state.account} />
-        <div className="container-fluid mt-5">
-          <div className="row">
-            <main role="main" className="col-lg-12 ml-auto mr-auto" style={{ maxWidth: '600px' }}>
+            <home role="home" className="col-lg-12 ml-auto mr-auto" style={{ maxWidth: '600px' }}>
               <div className="content mr-auto ml-auto">
-                <a
-                  href="http://www.dappuniversity.com/bootcamp"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                </a>
-
                 {content}
-
               </div>
-            </main>
-          </div>
-        </div>
+            </home>
       </div>
     );
   }

@@ -1,29 +1,32 @@
 import React, { Component } from 'react'
 import dai from '../dai.png'
-
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Card from '@mui/material/Card';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 class Home extends Component {
 
   render() {
+    
     return (
-      <div id="content" className="mt-3">
-
+      <div>
         <table className="table table-borderless text-muted text-center">
           <thead>
             <tr>
-              <th scope="col">Staking Balance</th>
-              <th scope="col">Reward Balance</th>
+              <th scope="col">Tokens Deposited</th>
+              <th scope="col">Interest Earned</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>{window.web3.utils.fromWei(this.props.stakingBalance, 'Ether')} mDAI</td>
-              <td>{window.web3.utils.fromWei(this.props.dappTokenBalance, 'Ether')} DAPP</td>
+              <td>{window.web3.utils.fromWei(this.props.vbooTokenBalance, 'Ether')} DAPP</td>
             </tr>
           </tbody>
         </table>
 
-        <div className="card mb-4" >
-
+        <Card style={{backgroundColor: 'black'}}>
           <div className="card-body">
 
             <form className="mb-3" onSubmit={(event) => {
@@ -34,10 +37,9 @@ class Home extends Component {
                 this.props.stakeTokens(amount)
               }}>
               <div>
-                <label className="float-left"><b>Stake Tokens</b></label>
-                <span className="float-right text-muted">
-                  Balance: {window.web3.utils.fromWei(this.props.daiTokenBalance, 'Ether')}
-                </span>
+                <Typography color="#90BDC0">
+                  Balance: {window.web3.utils.fromWei(this.props.daiTokenBalance, 'Ether')} mDAI
+                </Typography>
               </div>
               <div className="input-group mb-4">
                 <input
@@ -53,23 +55,22 @@ class Home extends Component {
                   </div>
                 </div>
               </div>
-              <button type="submit" className="btn btn-primary btn-block btn-lg">STAKE!</button>
+              <Button variant="contained" style={{backgroundColor:"#90BDC0"}}>DEPOSIT</Button>
             </form>
-            <button
-              type="submit"
-              className="btn btn-link btn-block btn-sm"
+            <Button
+              variant="contained" 
+              style={{backgroundColor:"#90BDC0"}}
               onClick={(event) => {
                 event.preventDefault()
                 this.props.unstakeTokens()
               }}>
-                UN-STAKE...
-              </button>
-          </div>
+                REVOKE
+              </Button>
         </div>
-
+        </Card>
       </div>
     );
   }
 }
 
-export default Main;
+export default Home;
