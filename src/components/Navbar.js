@@ -14,7 +14,7 @@ class Navbar extends Component {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar style={{backgroundColor: "black"}} position="static">
         <Toolbar>
-          <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
             Vboo Token Exchange
           </Typography>
           <Typography color="inherit">Welcome: {this.props.account}</Typography>

@@ -1,7 +1,7 @@
 pragma solidity ^0.5.0;
 
 contract VbooToken {
-    string  public name = "Vether Token";
+    string  public name = "Vboo Token";
     string  public symbol = "vETH";
     uint256 public totalSupply = 1000000000000000000000000; // 1 million tokens
     uint8   public decimals = 18;

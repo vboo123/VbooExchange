@@ -81,7 +81,7 @@ class App extends Component {
     })
   }
 
-  unstakeTokens = (amount) => {
+  unDepositTokens = (amount) => {
     this.setState({ loading: true })
     this.state.tokenFarm.methods.unDepositTokens().send({ from: this.state.account }).on('transactionHash', (hash) => {
       this.setState({ loading: false })
@@ -111,16 +111,22 @@ class App extends Component {
         daiTokenBalance={this.state.daiTokenBalance}
         vbooTokenBalance={this.state.vbooTokenBalance}
         stakingBalance={this.state.stakingBalance}
-        stakeTokens={this.depositTokens}
-        unstakeTokens={this.unDepositTokens}
+        depositTokens={this.depositTokens}
+        unDepositTokens={this.unDepositTokens}
       />
       // these are all the properties I am sending to the home page
     }
     return (
       <div className="background-red">
         <Navbar account={this.state.account} />
-            <home role="home" className="col-lg-12 ml-auto mr-auto" style={{ maxWidth: '600px' }}>
+            <home role="home" className="background-red" style={{ maxWidth: '600px' }}>
               <div className="content mr-auto ml-auto">
+                <a
+                  href="http://www.dappuniversity.com/bootcamp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                </a>
                 {content}
               </div>
             </home>
